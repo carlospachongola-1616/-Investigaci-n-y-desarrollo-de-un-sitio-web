@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raíz Verde | Cocina vegana en Neiva</title>
+  <meta name="description" content="Raíz Verde: restaurante de comida vegana inspirado en los sabores del Huila, en Neiva.">
+
+  <!-- Fuentes de Google (máximo dos): DM Serif Display para títulos y DM Sans para textos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS 4 mediante Play CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- Tema propio con @theme (regla 60-30-10 + colores semánticos) -->
+  <style type="text/tailwindcss">
+    @theme {
+      /* 60 %: fondo verde muy claro */
+      --color-base: #F4F7F1;
+      /* 30 %: verde bosque (textos, navbar, pie de página) */
+      --color-bosque: #1F3D2B;
+      --color-bosque-claro: #2E5A3F;
+      /* 10 %: acento terracota (botones y elementos destacados) */
+      --color-acento: #C2410C;
+      --color-acento-oscuro: #9A3412;
+      /* Colores semánticos */
+      --color-exito: #15803D;
+      --color-error: #B91C1C;
+      --color-advertencia: #B45309;
+      /* Fuentes */
+      --font-titulo: "DM Serif Display", serif;
+      --font-texto: "DM Sans", sans-serif;
+    }
+
+    /* Modo oscuro controlado con la clase .dark en <html> */
+    @custom-variant dark (&:where(.dark, .dark *));
+  </style>
+</head>
+
+<body class="bg-base text-bosque font-texto antialiased dark:bg-[#0F1A13] dark:text-[#E8EFE6]">
+
+  <!-- Enlace para saltar al contenido (accesibilidad con teclado) -->
+  <a href="#inicio" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-acento focus:text-white focus:px-4 focus:py-2 focus:rounded-lg">
+    Saltar al contenido
+  </a>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <header class="fixed top-0 inset-x-0 z-40 bg-bosque text-white shadow-md">
+    <nav class="max-w-6xl mx-auto flex items-center justify-between px-4 py-3 md:px-6" aria-label="Navegación principal">
+      <a href="#inicio" class="font-titulo text-2xl rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+        Raíz Verde
+      </a>
+
+      <!-- Enlaces en computador -->
+      <ul class="hidden lg:flex items-center gap-6 text-sm font-medium">
+        <li><a href="#menu" class="hover:text-orange-200 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">Menú</a></li>
+        <li><a href="#nosotros" class="hover:text-orange-200 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">Nosotros</a></li>
+        <li><a href="#preguntas" class="hover:text-orange-200 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">Preguntas</a></li>
+        <li><a href="#contacto" class="hover:text-orange-200 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">Contacto</a></li>
+      </ul>
+
+      <div class="flex items-center gap-2">
+        <!-- Botón modo oscuro -->
+        <button id="btn-tema" type="button" aria-label="Activar modo oscuro"
+          class="p-2 rounded-full hover:bg-bosque-claro transition-colors focus-visible:outline-2 focus-visible:outline-white">
+          <span id="icono-tema" aria-hidden="true">🌙</span>
+        </button>
+
+        <a href="#contacto" class="hidden sm:inline-block bg-acento hover:bg-acento-oscuro text-white text-sm font-bold px-4 py-2 rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+          Pedir ahora
+        </a>
+
+        <!-- Botón hamburguesa (solo celular y tablet) -->
+        <button id="btn-menu" type="button" class="lg:hidden p-2 rounded-lg hover:bg-bosque-claro focus-visible:outline-2 focus-visible:outline-white"
+          aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-movil">
+          <svg id="icono-abrir" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <svg id="icono-cerrar" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Menú desplegable en celular -->
+    <div id="menu-movil" class="hidden lg:hidden border-t border-bosque-claro">
+      <ul class="flex flex-col px-4 py-3 gap-1 text-base">
+        <li><a href="#menu" class="enlace-movil block px-3 py-2 rounded-lg hover:bg-bosque-claro focus-visible:outline-2 focus-visible:outline-white">Menú</a></li>
+        <li><a href="#nosotros" class="enlace-movil block px-3 py-2 rounded-lg hover:bg-bosque-claro focus-visible:outline-2 focus-visible:outline-white">Nosotros</a></li>
+        <li><a href="#preguntas" class="enlace-movil block px-3 py-2 rounded-lg hover:bg-bosque-claro focus-visible:outline-2 focus-visible:outline-white">Preguntas</a></li>
+        <li><a href="#contacto" class="enlace-movil block px-3 py-2 rounded-lg hover:bg-bosque-claro focus-visible:outline-2 focus-visible:outline-white">Contacto</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===================== HERO ===================== -->
+    <section id="inicio" class="relative min-h-[85vh] flex items-center pt-16">
+      <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1600&q=80"
+        alt="Bowl de vegetales frescos, aguacate y granos sobre una mesa"
+        class="absolute inset-0 w-full h-full object-cover">
+      <!-- Capa oscura para asegurar contraste del texto -->
+      <div class="absolute inset-0 bg-black/60" aria-hidden="true"></div>
+
+      <div class="relative max-w-6xl mx-auto px-4 md:px-6 text-white">
+        <p class="text-sm font-bold uppercase tracking-widest text-orange-200">Cocina 100 % vegetal · Neiva, Huila</p>
+        <h1 class="font-titulo text-4xl sm:text-5xl lg:text-6xl leading-tight mt-3 max-w-2xl">
+          Sabores opitas, hechos de plantas
+        </h1>
+        <p class="mt-4 text-lg md:text-xl max-w-xl text-gray-100">
+          Reinventamos la cocina huilense sin ingredientes de origen animal: tamal, asado y achiras, con todo el sabor de casa.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-3">
+          <a href="#menu" class="text-center bg-acento hover:bg-acento-oscuro text-white font-bold px-6 py-3 rounded-full transition hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+            Ver menú
+          </a>
+          <a href="#contacto" class="text-center border-2 border-white hover:bg-white hover:text-bosque font-bold px-6 py-3 rounded-full transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+            Hacer un pedido
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== MENÚ (tarjetas + filtro) ===================== -->
+    <section id="menu" class="scroll-mt-20 py-16 md:py-24">
+      <div class="max-w-6xl mx-auto px-4 md:px-6">
+        <h2 class="font-titulo text-3xl md:text-4xl text-center">Nuestro menú</h2>
+        <p class="mt-3 text-center text-base md:text-lg text-bosque-claro dark:text-[#B9CBB8] max-w-2xl mx-auto">
+          Platos preparados con productos de huertas del Huila.
+        </p>
+
+        <!-- Filtro de productos (componente extra) -->
+        <div class="mt-8 flex flex-wrap justify-center gap-2" role="group" aria-label="Filtrar menú por categoría">
+          <button type="button" data-filtro="todos" aria-pressed="true" class="btn-filtro px-4 py-2 rounded-full border-2 border-bosque text-sm font-bold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-acento dark:border-[#B9CBB8]">Todos</button>
+          <button type="button" data-filtro="platos" aria-pressed="false" class="btn-filtro px-4 py-2 rounded-full border-2 border-bosque text-sm font-bold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-acento dark:border-[#B9CBB8]">Platos fuertes</button>
+          <button type="button" data-filtro="snacks" aria-pressed="false" class="btn-filtro px-4 py-2 rounded-full border-2 border-bosque text-sm font-bold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-acento dark:border-[#B9CBB8]">Para picar</button>
+          <button type="button" data-filtro="bebidas" aria-pressed="false" class="btn-filtro px-4 py-2 rounded-full border-2 border-bosque text-sm font-bold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-acento dark:border-[#B9CBB8]">Bebidas</button>
+        </div>
+
+        <!-- Grid: 1 columna en celular, 2 en tablet, 3 en computador -->
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <article data-categoria="platos" class="tarjeta bg-white dark:bg-[#18281D] rounded-2xl shadow-md overflow-hidden transition hover:-translate-y-1 hover:shadow-xl">
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=75" alt="Bowl con quinua, vegetales asados y salsa" class="w-full h-48 object-cover bg-green-100" loading="lazy">
+            <div class="p-5">
+              <h3 class="font-titulo text-xl">Asado opita de setas</h3>
+              <p class="mt-2 text-sm leading-relaxed text-bosque-claro dark:text-[#B9CBB8]">Setas marinadas al estilo asado huilense, con arepa de maíz y ensalada.</p>
+              <p class="mt-4 text-lg font-bold text-acento dark:text-orange-300">$28.000</p>
+            </div>
+          </article>
+
+          <article data-categoria="platos" class="tarjeta bg-white dark:bg-[#18281D] rounded-2xl shadow-md overflow-hidden transition hover:-translate-y-1 hover:shadow-xl">
+            <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=800&q=75" alt="Ensalada colorida con hojas verdes y semillas" class="w-full h-48 object-cover bg-green-100" loading="lazy">
+            <div class="p-5">
+              <h3 class="font-titulo text-xl">Tamal vegano huilense</h3>
+              <p class="mt-2 text-sm leading-relaxed text-bosque-claro dark:text-[#B9CBB8]">Masa de maíz, garbanzo, arveja y zanahoria, envuelto en hoja de plátano.</p>
+              <p class="mt-4 text-lg font-bold text-acento dark:text-orange-300">$16.000</p>
+            </div>
+          </article>
+
+          <article data-categoria="platos" class="tarjeta bg-white dark:bg-[#18281D] rounded-2xl shadow-md overflow-hidden transition hover:-translate-y-1 hover:shadow-xl">
+            <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&q=75" alt="Plato saludable con granos, aguacate y verduras" class="w-full h-48 object-cover bg-green-100" loading="lazy">
+            <div class="p-5">
+              <h3 class="font-titulo text-xl">Bowl de lentejas</h3>
+              <p class="mt-2 text-sm leading-relaxed text-bosque-claro dark:text-[#B9CBB8]">Lentejas, arroz integral, plátano maduro, aguacate y hogao casero.</p>
+              <p class="mt-4 text-lg font-bold text-acento dark:text-orange-300">$22.000</p>
+            </div>
+          </article>
+
+          <article data-categoria="snacks" class="tarjeta bg-white dark:bg-[#18281D] rounded-2xl shadow-md overflow-hidden transition hover:-translate-y-1 hover:shadow-xl">
+            <img src="https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=800&q=75" alt="Verduras frescas variadas sobre una mesa de madera" class="w-full h-48 object-cover bg-green-100" loading="lazy">
+            <div class="p-5">
+              <h3 class="font-titulo text-xl">Achiras sin queso</h3>
+              <p class="mt-2 text-sm leading-relaxed text-bosque-claro dark:text-[#B9CBB8]">Nuestra versión del clásico huilense con almidón de achira y levadura nutricional.</p>
+              <p class="mt-4 text-lg font-bold text-acento dark:text-orange-300">$8.000</p>
+            </div>
+          </article>
+
+          <article data-categoria="snacks" class="tarjeta bg-white dark:bg-[#18281D] rounded-2xl shadow-md overflow-hidden transition hover:-translate-y-1 hover:shadow-xl">
+            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=75" alt="Bowl de vegetales con garbanzos" class="w-full h-48 object-cover bg-green-100" loading="lazy">
+            <div class="p-5">
+              <h3 class="font-titulo text-xl">Empanadas de garbanzo</h3>
+              <p class="mt-2 text-sm leading-relaxed text-bosque-claro dark:text-[#B9CBB8]">Tres empanadas crocantes con ají de cholupa de la casa.</p>
+              <p class="mt-4 text-lg font-bold text-acento dark:text-orange-300">$12.000</p>
+            </div>
+          </article>
+
+          <article data-categoria="bebidas" class="tarjeta bg-white dark:bg-[#18281D] rounded-2xl shadow-md overflow-hidden transition hover:-translate-y-1 hover:shadow-xl">
+            <img src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=800&q=75" alt="Batido de frutas en un vaso de vidrio" class="w-full h-48 object-cover bg-green-100" loading="lazy">
+            <div class="p-5">
+              <h3 class="font-titulo text-xl">Jugo de cholupa</h3>
+              <p class="mt-2 text-sm leading-relaxed text-bosque-claro dark:text-[#B9CBB8]">La fruta insignia del Huila en agua o con leche de avena.</p>
+              <p class="mt-4 text-lg font-bold text-acento dark:text-orange-300">$9.000</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== NOSOTROS ===================== -->
+    <section id="nosotros" class="scroll-mt-20 py-16 md:py-24 bg-white dark:bg-[#18281D]">
+      <div class="max-w-6xl mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        <img src="https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=1000&q=75"
+          alt="Verduras recién cosechadas de una huerta" class="w-full h-72 md:h-96 object-cover rounded-2xl bg-green-100" loading="lazy">
+        <div>
+          <h2 class="font-titulo text-3xl md:text-4xl">Nosotros</h2>
+          <p class="mt-4 text-base md:text-lg leading-relaxed">
+            Raíz Verde nació en Neiva con una idea sencilla: demostrar que la comida típica del Huila también puede ser vegana.
+            Trabajamos con campesinos de la región para conseguir maíz, plátano, frutas y verduras frescas.
+          </p>
+          <h3 class="font-titulo text-2xl mt-8">Lo que nos importa</h3>
+          <ul class="mt-4 space-y-2 text-base">
+            <li class="flex gap-2"><span aria-hidden="true">🌱</span> Ingredientes 100 % de origen vegetal.</li>
+            <li class="flex gap-2"><span aria-hidden="true">🤝</span> Compra directa a productores locales.</li>
+            <li class="flex gap-2"><span aria-hidden="true">♻️</span> Empaques compostables en domicilios.</li>
+          </ul>
+          <p class="mt-6 text-xs text-bosque-claro dark:text-[#B9CBB8]">Negocio ficticio creado con fines académicos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PREGUNTAS FRECUENTES (acordeón) ===================== -->
+    <section id="preguntas" class="scroll-mt-20 py-16 md:py-24">
+      <div class="max-w-3xl mx-auto px-4 md:px-6">
+        <h2 class="font-titulo text-3xl md:text-4xl text-center">Preguntas frecuentes</h2>
+
+        <div class="mt-10 space-y-3">
+          <div class="bg-white dark:bg-[#18281D] rounded-xl shadow-sm">
+            <h3>
+              <button type="button" class="acordeon-btn w-full flex justify-between items-center gap-4 text-left font-bold px-5 py-4 rounded-xl focus-visible:outline-2 focus-visible:outline-acento" aria-expanded="false" aria-controls="resp-1">
+                ¿Todos los platos son veganos?
+                <span class="acordeon-icono text-acento dark:text-orange-300 text-xl transition-transform" aria-hidden="true">+</span>
+              </button>
+            </h3>
+            <div id="resp-1" class="hidden px-5 pb-4 text-base leading-relaxed">Sí. No usamos carne, lácteos, huevo ni miel en ninguna preparación.</div>
+          </div>
+
+          <div class="bg-white dark:bg-[#18281D] rounded-xl shadow-sm">
+            <h3>
+              <button type="button" class="acordeon-btn w-full flex justify-between items-center gap-4 text-left font-bold px-5 py-4 rounded-xl focus-visible:outline-2 focus-visible:outline-acento" aria-expanded="false" aria-controls="resp-2">
+                ¿Tienen opciones sin gluten?
+                <span class="acordeon-icono text-acento dark:text-orange-300 text-xl transition-transform" aria-hidden="true">+</span>
+              </button>
+            </h3>
+            <div id="resp-2" class="hidden px-5 pb-4 text-base leading-relaxed">Sí. El tamal, el bowl de lentejas y las achiras no tienen gluten. Pregúntanos al hacer tu pedido.</div>
+          </div>
+
+          <div class="bg-white dark:bg-[#18281D] rounded-xl shadow-sm">
+            <h3>
+              <button type="button" class="acordeon-btn w-full flex justify-between items-center gap-4 text-left font-bold px-5 py-4 rounded-xl focus-visible:outline-2 focus-visible:outline-acento" aria-expanded="false" aria-controls="resp-3">
+                ¿Hacen domicilios en Neiva?
+                <span class="acordeon-icono text-acento dark:text-orange-300 text-xl transition-transform" aria-hidden="true">+</span>
+              </button>
+            </h3>
+            <div id="resp-3" class="hidden px-5 pb-4 text-base leading-relaxed">Sí, a toda la zona urbana de Neiva de martes a domingo.</div>
+          </div>
+
+          <div class="bg-white dark:bg-[#18281D] rounded-xl shadow-sm">
+            <h3>
+              <button type="button" class="acordeon-btn w-full flex justify-between items-center gap-4 text-left font-bold px-5 py-4 rounded-xl focus-visible:outline-2 focus-visible:outline-acento" aria-expanded="false" aria-controls="resp-4">
+                ¿Puedo reservar para un grupo grande?
+                <span class="acordeon-icono text-acento dark:text-orange-300 text-xl transition-transform" aria-hidden="true">+</span>
+              </button>
+            </h3>
+            <div id="resp-4" class="hidden px-5 pb-4 text-base leading-relaxed">Claro. Para grupos de más de 8 personas escríbenos con dos días de anticipación.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FORMULARIO DE CONTACTO ===================== -->
+    <section id="contacto" class="scroll-mt-20 py-16 md:py-24 bg-white dark:bg-[#18281D]">
+      <div class="max-w-2xl mx-auto px-4 md:px-6">
+        <h2 class="font-titulo text-3xl md:text-4xl text-center">Haz tu pedido o reserva</h2>
+        <p class="mt-3 text-center text-base">Te confirmamos por correo. Los campos con * son obligatorios.</p>
+
+        <form id="formulario" class="mt-10 space-y-5" novalidate>
+          <div>
+            <label for="nombre" class="block text-sm font-bold mb-1">Nombre completo *</label>
+            <input id="nombre" name="nombre" type="text" autocomplete="name" aria-describedby="error-nombre"
+              class="campo w-full rounded-lg border-2 border-gray-300 bg-base dark:bg-[#0F1A13] dark:border-[#3B5544] px-4 py-3 focus:outline-none focus:border-acento focus:ring-2 focus:ring-acento/40">
+            <p id="error-nombre" class="hidden mt-1 text-sm text-error dark:text-red-300"></p>
+          </div>
+
+          <div>
+            <label for="correo" class="block text-sm font-bold mb-1">Correo electrónico *</label>
+            <input id="correo" name="correo" type="email" autocomplete="email" aria-describedby="error-correo"
+              class="campo w-full rounded-lg border-2 border-gray-300 bg-base dark:bg-[#0F1A13] dark:border-[#3B5544] px-4 py-3 focus:outline-none focus:border-acento focus:ring-2 focus:ring-acento/40">
+            <p id="error-correo" class="hidden mt-1 text-sm text-error dark:text-red-300"></p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label for="tipo" class="block text-sm font-bold mb-1">Tipo de solicitud *</label>
+              <select id="tipo" name="tipo" aria-describedby="error-tipo"
+                class="campo w-full rounded-lg border-2 border-gray-300 bg-base dark:bg-[#0F1A13] dark:border-[#3B5544] px-4 py-3 focus:outline-none focus:border-acento focus:ring-2 focus:ring-acento/40">
+                <option value="">Selecciona una opción</option>
+                <option value="domicilio">Domicilio</option>
+                <option value="reserva">Reserva de mesa</option>
+                <option value="evento">Evento o catering</option>
+              </select>
+              <p id="error-tipo" class="hidden mt-1 text-sm text-error dark:text-red-300"></p>
+            </div>
+            <div>
+              <label for="personas" class="block text-sm font-bold mb-1">Número de personas *</label>
+              <input id="personas" name="personas" type="number" min="1" max="20" aria-describedby="error-personas"
+                class="campo w-full rounded-lg border-2 border-gray-300 bg-base dark:bg-[#0F1A13] dark:border-[#3B5544] px-4 py-3 focus:outline-none focus:border-acento focus:ring-2 focus:ring-acento/40">
+              <p id="error-personas" class="hidden mt-1 text-sm text-error dark:text-red-300"></p>
+            </div>
+          </div>
+
+          <div>
+            <label for="mensaje" class="block text-sm font-bold mb-1">Comentarios</label>
+            <textarea id="mensaje" name="mensaje" rows="4"
+              class="w-full rounded-lg border-2 border-gray-300 bg-base dark:bg-[#0F1A13] dark:border-[#3B5544] px-4 py-3 focus:outline-none focus:border-acento focus:ring-2 focus:ring-acento/40"></textarea>
+          </div>
+
+          <button type="submit"
+            class="w-full bg-acento hover:bg-acento-oscuro text-white font-bold py-3 rounded-full transition hover:scale-[1.02] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bosque dark:focus-visible:outline-white">
+            Enviar solicitud
+          </button>
+          <p class="text-xs text-center">Formulario de demostración: la información no se envía a ningún servidor.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== PIE DE PÁGINA ===================== -->
+  <footer class="bg-bosque text-white">
+    <div class="max-w-6xl mx-auto px-4 md:px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <p class="font-titulo text-2xl">Raíz Verde</p>
+        <p class="mt-2 text-sm text-gray-200">Cocina vegana con sabor opita.</p>
+      </div>
+      <div>
+        <h2 class="font-bold">Visítanos</h2>
+        <p class="mt-2 text-sm text-gray-200">Calle 10 # 6-25, Centro, Neiva (dirección ficticia)</p>
+        <p class="text-sm text-gray-200">Martes a domingo · 11:00 a. m. – 9:00 p. m.</p>
+      </div>
+      <div>
+        <h2 class="font-bold">Síguenos</h2>
+        <ul class="mt-2 flex gap-4 text-sm">
+          <li><a href="#" class="underline hover:text-orange-200 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Instagram</a></li>
+          <li><a href="#" class="underline hover:text-orange-200 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Facebook</a></li>
+          <li><a href="#" class="underline hover:text-orange-200 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">TikTok</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="border-t border-bosque-claro text-center text-xs text-gray-200 py-4">
+      © <span id="anio"></span> Raíz Verde. Todos los derechos reservados.
+    </p>
+  </footer>
+
+  <!-- ===================== TOAST ===================== -->
+  <div id="toast" role="status" aria-live="polite"
+    class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 hidden bg-exito text-white font-bold px-6 py-3 rounded-full shadow-lg">
+    ✔ ¡Solicitud enviada! Te escribiremos pronto.
+  </div>
+
+  <!-- ===================== JAVASCRIPT ===================== -->
+  <script>
+    // ---------- Modo oscuro ----------
+    const html = document.documentElement;
+    const btnTema = document.getElementById('btn-tema');
+    const iconoTema = document.getElementById('icono-tema');
+
+    function aplicarTema(oscuro) {
+      html.classList.toggle('dark', oscuro);
+      iconoTema.textContent = oscuro ? '☀️' : '🌙';
+      btnTema.setAttribute('aria-label', oscuro ? 'Activar modo claro' : 'Activar modo oscuro');
+    }
+
+    let temaGuardado = null;
+    try { temaGuardado = localStorage.getItem('tema'); } catch (e) {}
+    aplicarTema(temaGuardado === 'oscuro');
+
+    btnTema.addEventListener('click', () => {
+      const oscuro = !html.classList.contains('dark');
+      aplicarTema(oscuro);
+      try { localStorage.setItem('tema', oscuro ? 'oscuro' : 'claro'); } catch (e) {}
+    });
+
+    // ---------- Menú hamburguesa ----------
+    const btnMenu = document.getElementById('btn-menu');
+    const menuMovil = document.getElementById('menu-movil');
+
+    function cambiarMenu(abrir) {
+      menuMovil.classList.toggle('hidden', !abrir);
+      document.getElementById('icono-abrir').classList.toggle('hidden', abrir);
+      document.getElementById('icono-cerrar').classList.toggle('hidden', !abrir);
+      btnMenu.setAttribute('aria-expanded', abrir);
+      btnMenu.setAttribute('aria-label', abrir ? 'Cerrar menú' : 'Abrir menú');
+    }
+
+    btnMenu.addEventListener('click', () => cambiarMenu(menuMovil.classList.contains('hidden')));
+    // Cerrar el menú al tocar un enlace
+    document.querySelectorAll('.enlace-movil').forEach(enlace =>
+      enlace.addEventListener('click', () => cambiarMenu(false))
+    );
+
+    // ---------- Filtro del menú ----------
+    const botonesFiltro = document.querySelectorAll('.btn-filtro');
+    const tarjetas = document.querySelectorAll('.tarjeta');
+
+    function marcarFiltro(activo) {
+      botonesFiltro.forEach(b => {
+        const sel = b === activo;
+        b.setAttribute('aria-pressed', sel);
+        b.classList.toggle('bg-bosque', sel);
+        b.classList.toggle('text-white', sel);
+        b.classList.toggle('dark:bg-[#B9CBB8]', sel);
+        b.classList.toggle('dark:text-[#0F1A13]', sel);
+      });
+    }
+
+    botonesFiltro.forEach(boton => {
+      boton.addEventListener('click', () => {
+        const filtro = boton.dataset.filtro;
+        tarjetas.forEach(t => {
+          t.classList.toggle('hidden', filtro !== 'todos' && t.dataset.categoria !== filtro);
+        });
+        marcarFiltro(boton);
+      });
+    });
+    marcarFiltro(botonesFiltro[0]);
+
+    // ---------- Acordeón de preguntas ----------
+    document.querySelectorAll('.acordeon-btn').forEach(boton => {
+      boton.addEventListener('click', () => {
+        const abierto = boton.getAttribute('aria-expanded') === 'true';
+        const respuesta = document.getElementById(boton.getAttribute('aria-controls'));
+        boton.setAttribute('aria-expanded', !abierto);
+        respuesta.classList.toggle('hidden', abierto);
+        boton.querySelector('.acordeon-icono').classList.toggle('rotate-45', !abierto);
+      });
+    });
+
+    // ---------- Validación del formulario ----------
+    const formulario = document.getElementById('formulario');
+    const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function mostrarError(id, mensaje) {
+      const campo = document.getElementById(id);
+      const error = document.getElementById('error-' + id);
+      error.textContent = mensaje;
+      error.classList.toggle('hidden', !mensaje);
+      campo.classList.toggle('border-error', !!mensaje);
+      campo.setAttribute('aria-invalid', !!mensaje);
+    }
+
+    formulario.addEventListener('submit', (evento) => {
+      evento.preventDefault();
+      const nombre = formulario.nombre.value.trim();
+      const correo = formulario.correo.value.trim();
+      const tipo = formulario.tipo.value;
+      const personas = Number(formulario.personas.value);
+      let valido = true;
+
+      if (nombre.length < 3) { mostrarError('nombre', 'Escribe tu nombre (mínimo 3 letras).'); valido = false; }
+      else mostrarError('nombre', '');
+
+      if (!correo) { mostrarError('correo', 'El correo es obligatorio.'); valido = false; }
+      else if (!regexCorreo.test(correo)) { mostrarError('correo', 'Escribe un correo válido, por ejemplo nombre@correo.com.'); valido = false; }
+      else mostrarError('correo', '');
+
+      if (!tipo) { mostrarError('tipo', 'Selecciona el tipo de solicitud.'); valido = false; }
+      else mostrarError('tipo', '');
+
+      if (!personas || personas < 1 || personas > 20) { mostrarError('personas', 'Indica entre 1 y 20 personas.'); valido = false; }
+      else mostrarError('personas', '');
+
+      if (!valido) {
+        formulario.querySelector('[aria-invalid="true"]').focus();
+        return;
+      }
+
+      formulario.reset();
+      mostrarToast();
+    });
+
+    // ---------- Toast de confirmación (4 segundos) ----------
+    const toast = document.getElementById('toast');
+    let temporizador;
+    function mostrarToast() {
+      toast.classList.remove('hidden');
+      clearTimeout(temporizador);
+      temporizador = setTimeout(() => toast.classList.add('hidden'), 4000);
+    }
+
+    // ---------- Año actual en el pie de página ----------
+    document.getElementById('anio').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
