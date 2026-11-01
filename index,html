@@ -188,12 +188,12 @@
             </div>
           </article>
 
-          <article data-categoria="bebidas" class="tarjeta bg-white dark:bg-[#18281D] rounded-2xl shadow-md overflow-hidden transition hover:-translate-y-1 hover:shadow-xl">
+                    <article data-categoria="bebidas" class="tarjeta bg-white dark:bg-[#18281D] rounded-2xl shadow-md overflow-hidden transition hover:-translate-y-1 hover:shadow-xl">
             <img src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=800&q=75" alt="Batido de frutas en un vaso de vidrio" class="w-full h-48 object-cover bg-green-100" loading="lazy">
             <div class="p-5">
-              <h3 class="font-titulo text-xl">Jugo de cholupa</h3>
-              <p class="mt-2 text-sm leading-relaxed text-bosque-claro dark:text-[#B9CBB8]">La fruta insignia del Huila en agua o con leche de avena.</p>
-              <p class="mt-4 text-lg font-bold text-acento dark:text-orange-300">$9.000</p>
+              <h3 class="font-titulo text-xl">NOMBRE DE TU PLATO</h3>
+              <p class="mt-2 text-sm leading-relaxed text-bosque-claro dark:text-[#B9CBB8]">DESCRIPCIÓN DE TU PLATO</p>
+              <p class="mt-4 text-lg font-bold text-acento dark:text-orange-300">$PRECIO</p>
             </div>
           </article>
 
